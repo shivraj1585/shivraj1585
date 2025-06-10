@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fresh Sabji - Premium Vegetables</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff006e, #8338ec, #3a86ff);
+            min-height: 100vh;
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 0, 110, 0.2);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 0, 110, 0.3);
+            box-shadow: 0 10px 30px rgba(255, 0, 110, 0.3);
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #ff006e, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .vegetable-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .veggie-card {
+            background: linear-gradient(145deg, rgba(255, 0, 110, 0.15), rgba(131, 56, 236, 0.15));
+            border: 2px solid rgba(255, 0, 110, 0.4);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 8px 25px rgba(255, 0, 110, 0.2);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .veggie-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+            opacity: 0;
+        }
+
+        .veggie-card:hover::before {
+            animation: shine 0.6s ease-in-out;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); opacity: 0; }
+        }
+
+        .veggie-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(255, 0, 110, 0.8);
+            box-shadow: 0 15px 40px rgba(255, 0, 110, 0.4);
+        }
+
+        .veggie-icon {
+            font-size: 4em;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .veggie-name {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        .veggie-price {
+            font-size: 1.3em;
+            color: #ff006e;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .buy-btn {
+            background: linear-gradient(45deg, #ff006e, #8338ec);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .buy-btn:hover {
+            background: linear-gradient(45deg, #8338ec, #ff006e);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 0, 110, 0.4);
+        }
+
+        .cart-section {
+            background: rgba(131, 56, 236, 0.2);
+            border: 2px solid rgba(131, 56, 236, 0.4);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 10px 30px rgba(131, 56, 236, 0.3);
+        }
+
+        .cart-section h2 {
+            margin-bottom: 15px;
+            font-size: 2em;
+            color: #ffffff;
+        }
+
+        .cart-total {
+            font-size: 1.5em;
+            color: #ff006e;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .checkout-btn {
+            background: linear-gradient(45deg, #8338ec, #3a86ff);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .checkout-btn:hover {
+            background: linear-gradient(45deg, #3a86ff, #8338ec);
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(131, 56, 236, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            .vegetable-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Div 1: Header -->
+        <div class="header">
+            <h1>🥬 Fresh Sabji Store</h1>
+            <p>Farm Fresh Vegetables Delivered to Your Door!</p>
+        </div>
+
+        <!-- Divs 2-8: Vegetable Cards -->
+        <div class="vegetable-grid">
+            <!-- Div 2: Tomatoes -->
+            <div class="veggie-card" onclick="addToCart('Tomatoes', 40)">
+                <span class="veggie-icon">🍅</span>
+                <div class="veggie-name">Fresh Tomatoes</div>
+                <div class="veggie-price">₹40/kg</div>
+                <button class="buy-btn">Add to Cart</button>
+            </div>
+
+            <!-- Div 3: Onions -->
+            <div class="veggie-card" onclick="addToCart('Onions', 35)">
+                <span class="veggie-icon">🧅</span>
+                <div class="veggie-name">Red Onions</div>
+                <div class="veggie-price">₹35/kg</div>
+                <button class="buy-btn">Add to Cart</button>
+            </div>
+
+            <!-- Div 4: Potatoes -->
+            <div class="veggie-card" onclick="addToCart('Potatoes', 25)">
+                <span class="veggie-icon">🥔</span>
+                <div class="veggie-name">Farm Potatoes</div>
+                <div class="veggie-price">₹25/kg</div>
+                <button class="buy-btn">Add to Cart</button>
+            </div>
+
+            <!-- Div 5: Carrots -->
+            <div class="veggie-card" onclick="addToCart('Carrots', 50)">
+                <span class="veggie-icon">🥕</span>
+                <div class="veggie-name">Orange Carrots</div>
+                <div class="veggie-price">₹50/kg</div>
+                <button class="buy-btn">Add to Cart</button>
+            </div>
+
+            <!-- Div 6: Broccoli -->
+            <div class="veggie-card" onclick="addToCart('Broccoli', 80)">
+                <span class="veggie-icon">🥦</span>
+                <div class="veggie-name">Fresh Broccoli</div>
+                <div class="veggie-price">₹80/kg</div>
+                <button class="buy-btn">Add to Cart</button>
+            </div>
+
+            <!-- Div 7: Bell Peppers -->
+            <div class="veggie-card" onclick="addToCart('Bell Peppers', 60)">
+                <span class="veggie-icon">🫑</span>
+                <div class="veggie-name">Bell Peppers</div>
+                <div class="veggie-price">₹60/kg</div>
+                <button class="buy-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <!-- Div 8: Cart Section -->
+        <div class="cart-section">
+            <h2>🛒 Your Cart</h2>
+            <div class="cart-total">Total: ₹<span id="total">0</span></div>
+            <div id="cart-items" style="margin-bottom: 20px; opacity: 0.8;"></div>
+            <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <script>
+        let cart = {};
+        let total = 0;
+
+        function addToCart(item, price) {
+            if (cart[item]) {
+                cart[item].quantity += 1;
+            } else {
+                cart[item] = { price: price, quantity: 1 };
+            }
+            
+            total += price;
+            updateCartDisplay();
+            
+            // Add some visual feedback
+            event.target.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                event.target.style.transform = 'scale(1)';
+            }, 150);
+        }
+
+        function updateCartDisplay() {
+            document.getElementById('total').textContent = total;
+            
+            let cartItemsDiv = document.getElementById('cart-items');
+            cartItemsDiv.innerHTML = '';
+            
+            for (let item in cart) {
+                let itemDiv = document.createElement('div');
+                itemDiv.textContent = `${item} x${cart[item].quantity} - ₹${cart[item].price * cart[item].quantity}`;
+                itemDiv.style.marginBottom = '5px';
+                cartItemsDiv.appendChild(itemDiv);
+            }
+        }
+
+        function checkout() {
+            if (total > 0) {
+                alert(`Thank you for your order! Total: ₹${total}\nYour fresh vegetables will be delivered soon! 🚚`);
+                cart = {};
+                total = 0;
+                updateCartDisplay();
+            } else {
+                alert('Your cart is empty! Add some fresh vegetables first. 🥬');
+            }
+        }
+    </script>
+</body>
+</html>
